@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.guicedee</groupId>
+    <artifactId>website-backend</artifactId>
+    <version>2.0.2</version>
+    <packaging>jar</packaging>
+
+    <name>GuicedEE Website Backend</name>
+    <description>Backend aggregator service — service registry, health status, OpenAPI, and GraphQL gateway for all GuicedEE websites.</description>
+
+    <properties>
+        <project.scm.nameUrl>/GuicedEE/WebsiteBackend</project.scm.nameUrl>
+
+        <ignore.moditect>true</ignore.moditect>
+        <flatten.pom>false</flatten.pom>
+        <guicedee.version>2.1.0-SNAPSHOT</guicedee.version>
+
+        <maven.compiler.release>25</maven.compiler.release>
+        <lombok.version>1.18.46</lombok.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.guicedee</groupId>
+                <artifactId>guicedee-bom</artifactId>
+                <version>${guicedee.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.guicedee</groupId>
+                <artifactId>tests-bom</artifactId>
+                <version>${guicedee.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- GuicedEE Core -->
+        <dependency>
+            <groupId>com.guicedee</groupId>
+            <artifactId>client</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.guicedee</groupId>
+            <artifactId>inject</artifactId>
+        </dependency>
+
+        <!-- Vert.x Web Server -->
+        <dependency>
+            <groupId>com.guicedee</groupId>
+            <artifactId>web</artifactId>
+        </dependency>
+
+        <!-- Jakarta REST -->
+        <dependency>
+            <groupId>com.guicedee</groupId>
+            <artifactId>rest</artifactId>
+        </dependency>
+
+        <!-- REST Client (for health polling) -->
+        <dependency>
+            <groupId>com.guicedee</groupId>
+            <artifactId>rest-client</artifactId>
+        </dependency>
+
+        <!-- Service Registry -->
+        <dependency>
+            <groupId>com.guicedee</groupId>
+            <artifactId>service-registry</artifactId>
+        </dependency>
+
+        <!-- Runtine Autoconfigure -->
+        <dependency>
+            <groupId>com.guicedee</groupId>
+            <artifactId>runtime-autoconfigure</artifactId>
+        </dependency>
+
+        <!-- Health Checks -->
+        <dependency>
+            <groupId>com.guicedee</groupId>
+            <artifactId>health</artifactId>
+        </dependency>
+
+        <!-- OpenAPI + Swagger UI -->
+        <dependency>
+            <groupId>com.guicedee</groupId>
+            <artifactId>openapi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.guicedee</groupId>
+            <artifactId>swagger-ui</artifactId>
+        </dependency>
+
+        <!-- JWT Auth (for internal service-to-service) -->
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-auth-jwt</artifactId>
+        </dependency>
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+        </dependency>
+
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Testing -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.14.1</version>
+                <configuration>
+                    <release>${maven.compiler.release}</release>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+
