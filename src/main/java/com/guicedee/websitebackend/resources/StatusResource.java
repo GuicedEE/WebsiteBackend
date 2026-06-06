@@ -3,6 +3,7 @@ package com.guicedee.websitebackend.resources;
 import com.guicedee.service.registry.ServiceEntry;
 import com.guicedee.service.registry.ServiceRegistry;
 import com.guicedee.websitebackend.dto.AggregatedStatusDTO;
+import com.guicedee.websitebackend.dto.HealthDetailDTO;
 import com.guicedee.websitebackend.dto.ServiceStatusDTO;
 import io.smallrye.mutiny.Uni;
 import jakarta.ws.rs.GET;
