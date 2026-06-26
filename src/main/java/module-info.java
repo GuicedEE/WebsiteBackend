@@ -38,13 +38,13 @@ module com.guicedee.websitebackend {
     provides com.guicedee.vertx.web.spi.VertxRouterConfigurator
             with CorsRouteConfigurator;
 
-    opens com.guicedee.websitebackend to com.fasterxml.jackson.databind, com.google.guice;
-    opens com.guicedee.websitebackend.dto to com.fasterxml.jackson.databind, com.google.guice;
-    //opens com.guicedee.websitebackend.auth to  com.fasterxml.jackson.databind, com.google.guice;
-    opens com.guicedee.websitebackend.health to com.fasterxml.jackson.databind, com.google.guice;
-    opens com.guicedee.websitebackend.guice to com.fasterxml.jackson.databind, com.google.guice;
-    opens com.guicedee.websitebackend.routes to com.fasterxml.jackson.databind, com.google.guice;
-    opens com.guicedee.websitebackend.registry to com.fasterxml.jackson.databind, com.google.guice;
-    opens com.guicedee.websitebackend.resources to com.fasterxml.jackson.databind, com.google.guice, com.guicedee.rest;
+    opens com.guicedee.websitebackend to tools.jackson.databind, com.google.guice;
+    opens com.guicedee.websitebackend.dto to tools.jackson.databind, com.google.guice;
+    //opens com.guicedee.websitebackend.auth to  tools.jackson.databind, com.google.guice;
+    opens com.guicedee.websitebackend.health to tools.jackson.databind, com.google.guice;
+    opens com.guicedee.websitebackend.guice to tools.jackson.databind, com.google.guice;
+    opens com.guicedee.websitebackend.routes to tools.jackson.databind, com.google.guice;
+    opens com.guicedee.websitebackend.registry to tools.jackson.databind, com.google.guice;
+    opens com.guicedee.websitebackend.resources to tools.jackson.databind, com.google.guice, com.guicedee.rest;
 }
 
