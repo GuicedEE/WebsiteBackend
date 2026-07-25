@@ -1,5 +1,5 @@
 @ServiceRegistryOptions(
-        healthCheckInterval = 14400,
+        healthCheckInterval = 86400,
         healthPath = "/health/ready",
         registerSelf = true,
         useHttps = true

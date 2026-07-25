@@ -17,7 +17,7 @@
 
         <ignore.moditect>true</ignore.moditect>
         <flatten.pom>false</flatten.pom>
-        <guicedee.version>2.1.1-SNAPSHOT</guicedee.version>
+        <guicedee.version>2.2.0</guicedee.version>
 
         <maven.compiler.release>25</maven.compiler.release>
         <lombok.version>1.18.46</lombok.version>
@@ -116,6 +116,16 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
+        </dependency>
+
+        <!-- Jackson 2.x databind — required by log4j2 JsonLayout used in GuicedEE
+             LogUtils at boot. The 2.2.0 dependency graph ships Jackson 3 (tools.jackson)
+             and only Jackson 2 core/annotations, so bind databind 2.x explicitly (version
+             matched to the jackson-core 2.x already on the runtime). -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.21.4</version>
         </dependency>
 
         <!-- Lombok -->
