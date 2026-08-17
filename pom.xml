@@ -17,7 +17,7 @@
 
         <ignore.moditect>true</ignore.moditect>
         <flatten.pom>false</flatten.pom>
-        <guicedee.version>2.2.0</guicedee.version>
+        <guicedee.version>2.2.2</guicedee.version>
 
         <maven.compiler.release>25</maven.compiler.release>
         <lombok.version>1.18.46</lombok.version>
