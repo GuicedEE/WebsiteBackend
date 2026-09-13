@@ -1,5 +1,5 @@
 @ServiceRegistryOptions(
-        healthCheckInterval = 86400,
+        healthCheckInterval = 12 * 60 * 60, // seconds; let idle websites scale down between checks
         healthPath = "/health/ready",
         registerSelf = true,
         useHttps = true

@@ -27,6 +27,8 @@ module com.guicedee.websitebackend {
 
     // Logging
     requires org.apache.logging.log4j.core;
+    // CLOUD=true enables Log4j JsonLayout, which needs Jackson 2 databind at runtime.
+    requires com.fasterxml.jackson.databind;
 
     // Lombok
     requires static lombok;

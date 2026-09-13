@@ -43,6 +43,29 @@ Backend aggregator service for the GuicedEE ecosystem websites — provides a un
 
 ## Public Endpoints (CORS-enabled)
 
+### Website polling
+
+The backend checks registered websites once at startup, then every **12 hours**
+(`43,200` seconds), configured by `@ServiceRegistryOptions.healthCheckInterval` in
+`src/main/java/com/guicedee/websitebackend/registry/package-info.java`.
+`GET /api/status` and the backend readiness check read the cached registry state;
+they do not trigger additional requests to the websites. Each service's `lastChecked`
+records when its status was observed. Failed services may be checked less often due
+to the registry's exponential backoff.
+
+The interval applies while a backend instance is running. A restart or scale-from-zero
+starts a new instance and performs an initial check. Frontend refresh timers are
+independent: Activity Master refreshes every 12 hours and GuicedEE every 24 hours,
+in addition to their initial status request when the page loads.
+
+Deployed on 2026-09-12 in `Pay-As-You-Go / DevSites`: backend image
+`gedmarc/guicedee-website-backend:2026-09-12-polling2` and frontend image
+`gedmarc/activity-master-website:2026-09-12-polling`. The previous live Activity Master
+bundle refreshed status every 30 seconds. Browser clock checks of the replacement
+verify the initial request and exactly one refresh in each of two simulated 12-hour
+cycles. The backend's cloud-mode startup reports `43200s`; status calls return cached
+check timestamps. Only the new backend revision receives traffic and remains active.
+
 | Method | Path | Description |
 |---|---|---|
 | `GET` | `/api/status` | Aggregated health status of all services |
