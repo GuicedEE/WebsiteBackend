@@ -92,7 +92,7 @@ cp .env.example .env
 mvn clean package
 
 # Run
-java -cp "target/website-backend-2.0.2.jar:target/dependency/*" \
+java -cp "target/website-backend-2.4.0.jar:target/dependency/*" \
     com.guicedee.websitebackend.Boot
 ```
 
