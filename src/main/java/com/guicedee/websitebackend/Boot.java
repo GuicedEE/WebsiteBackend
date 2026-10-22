@@ -1,7 +1,8 @@
 package com.guicedee.websitebackend;
 
 import com.guicedee.client.IGuiceContext;
-import com.guicedee.client.utils.LogUtils;
+import com.guicedee.guicedinjection.GuiceApplication;
+import com.guicedee.telemetry.TelemetryOptions;
 import lombok.extern.log4j.Log4j2;
 
 /**
@@ -16,16 +17,14 @@ import lombok.extern.log4j.Log4j2;
  * </ul>
  */
 @Log4j2
+@TelemetryOptions(enabled = false, serviceName = "guicedee-website-backend", serviceVersion = "2.4.1", exportLogs = false)
 public final class Boot {
 
     private Boot() {
     }
 
     public static void main(String[] args) {
-        LogUtils.addHighlightedConsoleLogger();
-
-        IGuiceContext.registerModule("com.guicedee.websitebackend");
-        IGuiceContext.instance().inject();
+        GuiceApplication.run(() -> IGuiceContext.registerModule("com.guicedee.websitebackend"));
 
         log.info("🚀 Website Backend aggregator service ready.");
     }

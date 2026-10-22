@@ -27,6 +27,7 @@
 )
 @RegisteredService(
         name = "entity-assist-website",
+        url = "https://entityassist.com",
         aliases = {"entity-assist", "entityassist"},
         externalUrls = {"https://entityassist.com"},
         healthPath = "/",

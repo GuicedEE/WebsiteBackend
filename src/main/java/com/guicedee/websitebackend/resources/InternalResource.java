@@ -29,7 +29,7 @@ public class InternalResource {
     public Uni<Map<String, Object>> getConfig() {
         return Uni.createFrom().item(() -> Map.of(
                 "serviceName", "website-backend",
-                "version", "2.4.0",
+                "version", "2.4.1",
                 "environment", System.getenv().getOrDefault("ENVIRONMENT", "development")
         ));
     }

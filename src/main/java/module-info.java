@@ -6,6 +6,7 @@ module com.guicedee.websitebackend {
     // GuicedEE core
     requires com.guicedee.client;
     requires com.guicedee.guicedinjection;
+    requires com.guicedee.telemetry;
 
     // Vert.x web + REST
     requires com.guicedee.vertx.web;
@@ -27,8 +28,7 @@ module com.guicedee.websitebackend {
 
     // Logging
     requires org.apache.logging.log4j.core;
-    // CLOUD=true enables Log4j JsonLayout, which needs Jackson 2 databind at runtime.
-    requires com.fasterxml.jackson.databind;
+    // Cloud JSON logging is supplied by the client module without Jackson 2.
 
     // Lombok
     requires static lombok;

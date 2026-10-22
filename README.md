@@ -89,14 +89,34 @@ check timestamps. Only the new backend revision receives traffic and remains act
 cp .env.example .env
 
 # Build
-mvn clean package
+mvn package
 
 # Run
-java -cp "target/website-backend-2.4.0.jar:target/dependency/*" \
+java -cp "target/website-backend-2.4.1.jar:target/dependency/*" \
     com.guicedee.websitebackend.Boot
 ```
 
 ## Deployment (Azure Container Apps)
+
+### GuicedEE 2.4.1 deployment - 16 October 2026
+
+- Revision: `website-backend--v241-20261016`, active with 100% of traffic.
+- Immutable image: `docker.io/gedmarc/guicedee-website-backend@sha256:5b71c8f532dafafd6a8e0f56427d7843a45d323da12d3180f6399a697dc15397` (tag `2.4.1-20261016`).
+- The Container App was explicitly stopped before this deployment; it is now running.
+  The previous revision `website-backend--0000004` is deactivated.
+- The Linux Java 25 image contains GuicedEE 2.4.1 and Jackson 3.2.3, with no Jackson 2
+  core/databind. Cloud JSON startup, readiness/liveness, APIs, Swagger/OpenAPI,
+  frontend CORS and denial of anonymous internal-config requests were verified.
+- Boot awaits startup through `GuiceApplication.run` and relies on its console setup.
+  Explicit telemetry options default to disabled; the deployment sets
+  `TELEMETRY_ENABLED=false` because no collector is configured. Operators can enable
+  telemetry explicitly with a configured collector.
+- `SERVICE_REGISTRY_DNS_SUFFIX=whitegrass-2e17714c.ukwest.azurecontainerapps.io`
+  supplies the deployment DNS fallback. EntityAssist is checked through its public
+  `https://entityassist.com` URL, avoiding the mismatched Container App name.
+- All four public websites are healthy. The optional ActivityMaster API remains
+  unconfigured (`ACTIVITY_MASTER_API_URL`); its registry entry reports DOWN and the
+  aggregate dashboard reports DEGRADED. Backend readiness is UP.
 
 ```bash
 cd terraform
