@@ -1,40 +1,19 @@
-# trixie (Debian 13, glibc 2.41) — must be >= the glibc the jlink runtime was
-# built against (JDK 25 on the build host needs GLIBC_2.38+); bookworm's 2.36 is too old.
-FROM debian:trixie-slim
+# The context is prepared by build-native.ps1, not the repository root.
+FROM quay.io/quarkus/ubi9-quarkus-mandrel-builder-image:jdk-25@sha256:c0ff31764f70469795db5513d674e4721fd8e7e761beddbff741ef5d84e79ed3 AS native-build
+USER root
+WORKDIR /src
+COPY NativeBuild.java application.jar ./
+COPY native-libs/ native-libs/
+RUN java NativeBuild.java application.jar native-libs com.guicedee.websitebackend/com.guicedee.websitebackend.Boot \
+    && native-image -J-Xmx8g @target/native-image.args
 
-# Install minimal runtime dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    ca-certificates \
-    && rm -rf /var/lib/apt/lists/*
-
-# Create non-root user
-RUN groupadd -r app && useradd -r -g app -d /app app
-
-# Copy the jlink runtime image (must be built on Linux/amd64)
-COPY target/maven-jlink/default/bin /opt/app/bin
-COPY target/maven-jlink/default/conf /opt/app/conf
-COPY target/maven-jlink/default/lib /opt/app/lib
-COPY target/maven-jlink/default/release /opt/app/release
-
-# Set permissions
-RUN chmod +x /opt/app/bin/*
-
-# Switch to non-root user
-USER app
+# Mandrel emits a glibc binary; a musl-only Alpine base cannot run it.
+FROM debian:trixie-slim@sha256:a72b4433de1cf7d6bae0c4cee74d0547f58601a643b3375f070c51600d63b6b2
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates zlib1g \
+    && rm -rf /var/lib/apt/lists/* && mkdir -p /app/logs && chown -R 65532:65532 /app
 WORKDIR /app
-
-# Expose default Vert.x port
+COPY --from=native-build --chown=65532:65532 /src/target/native/application /app/application
+USER 65532:65532
+ENV GUICEDEE_DISCOVERY_MODE=spi
 EXPOSE 8080
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-    CMD /opt/app/bin/java -version || exit 1
-
-# Launch via the jlink launcher script
-ENTRYPOINT ["/opt/app/bin/site-launcher"]
-
-
-
-
-
-
+ENTRYPOINT ["/app/application"]

@@ -33,6 +33,10 @@ module com.guicedee.websitebackend {
     // Lombok
     requires static lombok;
 
+    requires com.guicedee.nativeimage;
+    provides com.guicedee.client.services.IGuiceDiscovery with com.guicedee.websitebackend.WebsiteBackendDiscovery;
+    provides com.guicedee.nativeimage.GuiceNativeConfiguration with com.guicedee.websitebackend.WebsiteBackendNativeConfiguration;
+
     // Guice SPI registrations
     provides com.guicedee.client.services.lifecycle.IGuiceModule
             with WebsiteBackendModule;
@@ -49,4 +53,3 @@ module com.guicedee.websitebackend {
     opens com.guicedee.websitebackend.registry to tools.jackson.databind, com.google.guice;
     opens com.guicedee.websitebackend.resources to tools.jackson.databind, com.google.guice, com.guicedee.rest;
 }
-

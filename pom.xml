@@ -49,6 +49,7 @@
     </dependencyManagement>
 
     <dependencies>
+        <dependency><groupId>com.guicedee</groupId><artifactId>native-image</artifactId><version>${guicedee.version}</version></dependency>
         <!-- GuicedEE Core -->
         <dependency>
             <groupId>com.guicedee</groupId>
@@ -159,4 +160,3 @@
         </plugins>
     </build>
 </project>
-

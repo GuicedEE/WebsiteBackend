@@ -1,0 +1,14 @@
+{
+  "resources": [{"module":"io.vertx.core","glob":"META-INF/vertx/vertx-version.txt"}],
+  "reflection": [
+    {
+      "type": {
+        "lambda": {
+          "declaringClass": "com.guicedee.guicedinjection.injections.ContextBinderGuice",
+          "interfaces": ["com.google.inject.Provider"]
+        }
+      }
+    }
+  ]
+}
+
